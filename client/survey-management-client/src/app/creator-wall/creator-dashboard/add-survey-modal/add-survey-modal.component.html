@@ -1,0 +1,32 @@
+
+    <h2 mat-dialog-title>Add New Survey</h2>
+    <mat-dialog-content class="mat-typography">
+      <div class="container">
+        <div class="row">
+          <div>
+            <b>Provide a title for the survey</b>
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="surveyTitle" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+          </div>
+
+          <div>
+            <b>Provide a description</b>
+            <div class="mb-3">
+              <input type="text" [(ngModel)]="surveyDesc" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+
+  
+      <button type="button" (click)="saveSurvey()" mat-raised-button>Save</button>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+
+  

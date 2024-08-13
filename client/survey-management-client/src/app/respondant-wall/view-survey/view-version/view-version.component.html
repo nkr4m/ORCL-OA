@@ -1,0 +1,60 @@
+<br>
+<h1 class="display-3" style="font-weight: bolder;">Survey View</h1>
+<form *ngIf="version != undefined" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngFor="let section of formSections" class="mb-2 mt-3">
+
+    <div *ngIf="section.sectionType === 'HEADING'">
+     <h1><b>{{ section.sectionTitle }}</b></h1>
+    </div>
+
+    <!-- TEXTAREA -->
+    <mat-card *ngIf="section.sectionType === 'TEXTAREA' || section.sectionType === 'RADIO' || section.sectionType === 'CHECKBOX'" style="border-left: solid 5px #0d6efd;">
+      <mat-card-header><h3>{{ section.sectionTitle }}</h3></mat-card-header>
+      <mat-card-content>
+      <div *ngIf="section.sectionType === 'TEXTAREA'">
+        <input type="text" class="form-control" formControlName="sectionId-{{ section.sectionId }}" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
+
+    <!-- RADIO -->
+
+    <div *ngIf="section.sectionType === 'RADIO'">
+        <!-- <mat-card-header><h3>{{ section.sectionTitle }}</h3></mat-card-header> -->
+        <div *ngFor="let option of section.sectionOptions">
+
+          <input class="form-check-input" type="radio" [value]="option.sectionOptionId" formControlName="sectionId-{{ section.sectionId }}">
+          <label class="form-check-label" for="flexRadioDefault1">
+            &nbsp; {{option?.optionTitle}}
+          </label>
+
+        </div>
+    </div>
+
+    <!-- CHECKBOX -->
+
+    <div *ngIf="section.sectionType === 'CHECKBOX'">
+
+        <!-- <mat-card-header><h3>{{ section.sectionTitle }}</h3></mat-card-header> -->
+        <div formGroupName="sectionId-{{ section.sectionId }}">
+          <div *ngFor="let option of section.sectionOptions">
+
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [formControlName]="option.sectionOptionId ">
+            <label class="form-check-label" for="flexCheckDefault">
+             &nbsp; {{option?.optionTitle}}
+            </label>
+          </div>
+        </div>
+
+    </div>
+  </mat-card-content>
+  </mat-card>
+  </div>
+  <br>
+  <button type="submit" mat-raised-button>Submit</button> &nbsp;
+  <button type="button" (click)="saveOnLocalStorage()" mat-raised-button>Save</button>
+</form>
+
+<div *ngIf="version == undefined">
+  <p>No Survey selected/available</p>
+</div>
+
+<br><br><br>

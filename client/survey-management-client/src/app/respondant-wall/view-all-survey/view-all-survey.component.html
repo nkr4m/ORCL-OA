@@ -1,0 +1,90 @@
+<section class="py-3 py-md-5 py-xl-8">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+                <h1 class="display-5 fw-bold" style="font-size: 3rem;">Respondant Wall</h1>
+                
+                <div class="mb-2">
+                    <h1 class="display-5 fw-bold text-primary" style="font-size: 3rem;">Available Survey. </h1>
+                    <p class="m-0">Search/Enter any survey(s) of your choice.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div style="margin-top: 20px">
+    <div class="container mt-3 mb-5">
+        <!-- <div class="input-group mb-4">
+            <span class="input-group-text">Search</span>
+            <textarea class="form-control" aria-label="With textarea" disabled></textarea>
+        </div> -->
+
+
+
+        <div *ngIf="isSurveyAvailable; else noResults" class="row row-cols-1 row-cols-md-3 g-4">
+            <div *ngFor="let survey of surveyList" class="col-md-4 mb-2">
+                <mat-card class="example-card" style="border-left: solid 5px #0d6efd;">
+                    <mat-card-header>
+                        <mat-card-title>{{survey.title}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{survey.owner}}</p>
+                        <!-- <p>{{ longText }}</p> -->
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem corrupti, pariatur
+                            voluptates
+                            quod itaque, non illum sequi eum iure expedita odio explicabo! Odit quae architecto aut
+                            repellendus sunt dolore explicabo!</p>
+                        <mat-divider></mat-divider>
+                    </mat-card-content>
+
+                    <mat-card-footer>
+                        <mat-card-actions align="end">
+                            <button mat-button (click)="routeToSpecificSurvey(survey.surveyId)">Enter</button>
+                        </mat-card-actions>
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+
+
+
+        </div>
+
+        <ng-template #noResults>
+            <tbody>
+                <tr class="text-center">
+                    <td colspan="9">No Surveys Found.</td>
+                </tr>
+            </tbody>
+        </ng-template>
+
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item" [ngClass]="{disabled: isPrevDisabled}">
+                    <a class="page-link" (click)="goToPage(currentPage - 1, 10)">Previous</a>
+                </li>
+
+                <li class="page-item active"><a class="page-link">{{currentPage + 1}}</a></li>
+
+                <li *ngIf="currentPage + 1 < totalPage" class="page-item"><a (click)="goToPage(currentPage + 1, 10)"
+                        class="page-link">{{currentPage + 2}}</a></li>
+
+                <li *ngIf="currentPage + 2 < totalPage" class="page-item"><a (click)="goToPage(currentPage + 2, 10)"
+                        class="page-link">{{currentPage + 3}}</a></li>
+
+                <li class="page-item" [ngClass]="{disabled: isNextDisabled}">
+                    <a class="page-link" (click)="goToPage(currentPage + 1, 10)">Next</a>
+                </li>
+                &nbsp; &nbsp;
+                <div class="total-pages mt-2 justify-content-start">
+                    Total Page(s): {{ totalPage >= 0 ? totalPage : 0 }}
+                </div>
+            </ul>
+
+        </nav>
+        <br><br><br>
+
+    </div>

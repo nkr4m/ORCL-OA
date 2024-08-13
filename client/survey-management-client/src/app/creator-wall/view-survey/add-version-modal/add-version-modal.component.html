@@ -1,0 +1,33 @@
+
+    <h2 mat-dialog-title>Add New Version</h2>
+    <mat-dialog-content class="mat-typography">
+      <div class="container">
+        <div class="row">
+
+          <div>
+            <b>Provide a version number</b>
+            <div class="mb-3">
+                <input type="number" class="form-control" [(ngModel)]="versionTitle"  id="floatingTextarea2"/>
+            </div>
+          </div>
+
+          <div>
+            <b>Provide a description for the version</b>
+            <div class="mb-3">
+                <textarea class="form-control" [(ngModel)]="description"  id="floatingTextarea2" style="height: 80px"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+
+
+  
+      <button type="button" (click)="saveVersion()" mat-raised-button>Save</button>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+
+  

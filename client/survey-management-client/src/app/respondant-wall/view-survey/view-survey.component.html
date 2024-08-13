@@ -1,0 +1,133 @@
+<section class="py-3 py-md-5 py-xl-8">
+  <div class="container">
+      <div class="row">
+
+          <div class="col-12">
+              <h1 class="display-5 fw-bold" style="font-size: 3rem;">Respondant Wall</h1>
+              
+              <div class="mb-2">
+                  <h1 class="display-5 fw-bold text-primary" style="font-size: 3rem;">Survey View.</h1>
+                  <p class="m-0">view/respond survey(s) of your choice.</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<div style="margin-top: 20px">
+    <div class="text-center mt-2 mb-3">
+
+      <div class="col-12">
+        <div class="mb-2">
+            <h1 class="display-5 fw-bold text-primary" style="font-size: 3rem;">{{completeData?.title}}</h1>
+            <p style="margin-top: -10px;">{{completeData?.description}}</p>
+        <p style="margin-top: -14px;">{{completeData?.owner}}</p>
+        <p style="margin-top: -14px;">Created On - {{completeData?.createdOn}}</p>
+        </div>
+    </div>
+
+        
+    </div>
+
+    <div class="container mt-3 mb-5">
+        <!-- <h1 class="display-3" style="font-weight: bolder;">Survey Version Console</h1>
+        <div id="emailHelp" class="form-text" style="margin-top: -20px;">select a version to respond.</div>
+
+
+        <span *ngFor="let version of survey?.versions" class="col-md-2 mb-2">
+            <span *ngIf="version.live == true" style="cursor: pointer;" (click)="viewVersion(version, version.surveyVersionId)" class="badge text-bg-primary">v{{version.versionTitle}}</span>
+            &nbsp;
+        </span> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- survey version start here -->
+
+
+        <div id="versionDiv">
+            <!-- <app-view-version [version]="selectedVersion" [surveyId]="surveyId" [versionId]="selectedVersionId" /> -->
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <div *ngFor="let section of formSections" class="mb-2 mt-3">
+            
+                <div *ngIf="section.sectionType === 'HEADING'">
+                 <h1><b>{{ section.sectionTitle }}</b></h1>
+                </div>
+            
+                <!-- TEXTAREA -->
+                <mat-card *ngIf="section.sectionType === 'TEXTAREA' || section.sectionType === 'RADIO' || section.sectionType === 'CHECKBOX'" style="border-left: solid 5px #0d6efd;">
+                  <mat-card-header><h3>{{ section.sectionTitle }}</h3></mat-card-header>
+                  <mat-card-content>
+                  <div *ngIf="section.sectionType === 'TEXTAREA'">
+                    <input type="text" class="form-control" formControlName="sectionId-{{ section.sectionId }}" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  </div>
+            
+                <!-- RADIO -->
+            
+                <div *ngIf="section.sectionType === 'RADIO'">
+                    <!-- <mat-card-header><h3>{{ section.sectionTitle }}</h3></mat-card-header> -->
+                    <div *ngFor="let option of section.sectionOptions">
+            
+                      <input class="form-check-input" type="radio" [value]="option.sectionOptionId" formControlName="sectionId-{{ section.sectionId }}">
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        &nbsp; {{option?.optionTitle}}
+                      </label>
+            
+                    </div>
+                </div>
+            
+                <!-- CHECKBOX -->
+            
+                <div *ngIf="section.sectionType === 'CHECKBOX'">
+            
+                    <!-- <mat-card-header><h3>{{ section.sectionTitle }}</h3></mat-card-header> -->
+                    <div formGroupName="sectionId-{{ section.sectionId }}">
+                      <div *ngFor="let option of section.sectionOptions">
+            
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [formControlName]="option.sectionOptionId ">
+                        <label class="form-check-label" for="flexCheckDefault">
+                         &nbsp; {{option?.optionTitle}}
+                        </label>
+                      </div>
+                    </div>
+            
+                </div>
+              </mat-card-content>
+              </mat-card>
+              </div>
+              <br>
+              <button type="submit" mat-raised-button>Submit</button> &nbsp;
+              <button type="button" (click)="saveOnLocalStorage()" mat-raised-button>Save</button>
+            </form>
+            
+
+            
+            <br><br><br>
+        
+        
+        
+        
+        
+        
+        
+        
+        </div>
+
+    </div>
+</div>
+
+<!-- <p>view-survey works! - {{surveyId}}</p> -->

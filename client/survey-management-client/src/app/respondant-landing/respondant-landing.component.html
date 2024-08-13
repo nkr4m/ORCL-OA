@@ -1,0 +1,125 @@
+<mat-toolbar class="bg-primary text-white sticky-top shadow">
+  <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+  </button> -->
+  <span>Survey Management - Respondant Wall</span>
+  <span class="example-spacer"></span>
+
+
+
+</mat-toolbar>
+<!-- Login 12 - Bootstrap Brain Component -->
+<section class="py-3 py-md-5 py-xl-8">
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-12">
+        <h1 class="display-5 fw-bold" style="font-size: 3rem;">Survey Management System</h1>
+        <div *ngIf="showSignIn" class="mb-5">
+          <h1 class="display-5 fw-bold text-primary" style="font-size: 3rem;">Sign In.</h1>
+          <p class="m-0">Don't have an account? <a style="color: blue; cursor: pointer;" (click)="toggleSignIn()">Sign up</a></p>
+        </div>
+        <div *ngIf="!showSignIn" class="mb-5">
+          <h1 class="display-5 fw-bold text-primary" style="font-size: 3rem;">Sign Up.</h1>
+          <p class="m-0">Already have an account? <a style="color: blue; cursor: pointer;" (click)="toggleSignIn()">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-8">
+        <div class="row gy-5 justify-content-center">
+          <div class="col-12 col-lg-5">
+
+            <!-- sign up form -->
+            <form *ngIf="!showSignIn" [formGroup]="signUpForm" (ngSubmit)="handleSignUp()">
+              <div class="row gy-3 overflow-hidden">
+                <div class="col-12">
+                  <div class="form-floating mb-3">
+                    <input type="text" formControlName="name" class="form-control border-0 border-bottom rounded-0" name="email" id="email" placeholder="name@example.com" required>
+                    <label for="text" class="form-label">Name</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating mb-3">
+                    <input type="number" formControlName="phoneNumber" class="form-control border-0 border-bottom rounded-0" name="email" id="email" placeholder="name@example.com" required>
+                    <label for="number" class="form-label">Phone Number</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating mb-3">
+                    <input type="email" formControlName="email" class="form-control border-0 border-bottom rounded-0" name="email" id="email" placeholder="name@example.com" required>
+                    <label for="email" class="form-label">Email</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating mb-3">
+                    <input type="password" formControlName="password" class="form-control border-0 border-bottom rounded-0" name="password" id="password" value="" placeholder="Password" required>
+                    <label for="password" class="form-label">Password</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn btn-md btn-primary btn-lg px-4 gap-3 fs-6" type="submit">Sign up</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+
+            <!-- sign-in form -->
+            <form *ngIf="showSignIn" [formGroup]="signInForm" (ngSubmit)="handleSignIn()">
+              <div class="row gy-3 overflow-hidden">
+                <div class="col-12">
+                  <div class="form-floating mb-3">
+                    <input type="email" formControlName="email" class="form-control border-0 border-bottom rounded-0" name="email" id="email" placeholder="name@example.com" required>
+                    <label for="email" class="form-label">Email</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating mb-3">
+                    <input type="password" formControlName="password" class="form-control border-0 border-bottom rounded-0" name="password" id="password" value="" placeholder="Password" required>
+                    <label for="password" class="form-label">Password</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="row justify-content-between">
+                    <div class="col-6">
+                      <div class="form-check">
+                        <input class="form-check-input" formControlName="remember" type="checkbox" value="" name="remember_me" id="remember_me">
+                        <label class="form-check-label text-primary" for="remember_me">
+                          Remember me
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn btn-md btn-primary btn-lg px-4 gap-3 fs-6" type="submit">Log in</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-12 col-lg-2 d-flex align-items-center justify-content-center gap-3 flex-lg-column">
+            <div class="bg-dark h-100 d-none d-lg-block" style="width: 1px; --bs-bg-opacity: .1;"></div>
+            <div class="bg-dark w-100 d-lg-none" style="height: 1px; --bs-bg-opacity: .1;"></div>
+            <div>or</div>
+            <div class="bg-dark h-100 d-none d-lg-block" style="width: 1px; --bs-bg-opacity: .1;"></div>
+            <div class="bg-dark w-100 d-lg-none" style="height: 1px; --bs-bg-opacity: .1;"></div>
+          </div>
+          <div class="col-12 col-lg-5 d-flex align-items-center">
+            <div class="d-flex gap-3 flex-column w-100 ">
+              <a (click)="navigateRespondantWall()" class="btn btn-md btn-primary btn-lg px-4 gap-3 flex align-items-center">
+                <span class="ms-2 fs-6 flex-grow-1">Continue anonymous</span>
+              </a>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

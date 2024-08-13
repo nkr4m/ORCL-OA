@@ -1,0 +1,12 @@
+#Dockerfile
+#Start with a base image containing Java runtime
+FROM openjdk:17-jdk-slim
+
+#Information around who maintains the image
+MAINTAINER ramachandran nk 25-06-2024
+
+# Add the application's jar to the image
+COPY /survey-creator-service.jar survey-creator-service.jar
+
+# execute the application
+ENTRYPOINT ["java", "-jar", "survey-creator-service.jar"]

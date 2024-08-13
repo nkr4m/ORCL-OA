@@ -1,0 +1,17 @@
+<p-toast position="bottom-center" key="tc" [baseZIndex]="7000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column align-items-start" style="flex: 1">
+            <div class="flex align-items-center gap-2">
+                <span class="font-bold text-900">
+                   <b>{{message.summary}}</b>
+                </span>
+            </div>
+            <div class="font-medium text-lg my-3 text-900">
+                {{message.detail}}
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<router-outlet />
+
+<app-footer></app-footer>

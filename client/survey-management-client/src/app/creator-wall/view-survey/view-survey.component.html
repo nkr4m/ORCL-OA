@@ -1,0 +1,89 @@
+<section class="py-3 py-md-5 py-xl-8">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+                <h1 class="display-5 fw-bold" style="font-size: 3rem;">Creator Wall</h1>
+
+                <div class="mb-2">
+                    <h1 class="display-5 fw-bold text-primary" style="font-size: 3rem;">Survey Editor.</h1>
+                    <p class="m-0">Create/Edit survey(s) of your choice.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div style="margin-top: 20px">
+    <div class="text-center mt-2 mb-3">
+
+        <div class="col-12">
+            <div class="mb-2">
+                <h1 class="display-5 fw-bold text-primary" style="font-size: 3rem;">{{survey?.title}}</h1>
+                <p class="m-0">Create/Edit survey(s) of your choice.</p>
+            </div>
+        </div>
+        <p style="margin-top: -10px;">{{survey?.description}}</p>
+        <p style="margin-top: -14px;">{{survey?.owner}}</p>
+        <p style="margin-top: -14px;">Created On - {{survey?.createdOn}}</p>
+    </div>
+
+    <div class="container mt-3 mb-5">
+
+
+
+        <h1 class="display-3" style="font-weight: bolder;">Survey version console</h1>
+        <div id="emailHelp" class="form-text" style="margin-top: -20px;">Select a version to start editing.</div>
+        <button class="mb-2" (click)="addVersionModal()" mat-raised-button>Add Version</button>
+        <br>
+        <span *ngFor="let version of survey?.versions" class="mb-2">
+            <span style="cursor: pointer;" (click)="viewVersion(version)">
+                <button style="background-color: greenyellow;" *ngIf="version.surveyVersionId == survey.activeVersion"
+                    class="mb-2" mat-raised-button> v{{version.versionTitle}}</button>
+
+                <button *ngIf="version.surveyVersionId != survey.activeVersion && version.live == true"
+                    class="text-bg-primary mb-2" mat-raised-button> v{{version.versionTitle}}</button>
+
+
+                <button *ngIf="version.surveyVersionId != survey.activeVersion && version.live == false"
+                    class="text-bg-secondary mb-2" mat-raised-button> v{{version.versionTitle}}</button>
+
+
+            </span>
+            <!-- <span *ngIf="version.live" style="cursor:  not-allowed;"class="badge text-bg-success">v{{version.surveyVersionId}}</span>     -->
+            &nbsp;
+        </span>
+        <br><br>
+        <span>
+            <span class="badge rounded-pill text-bg-primary">Live Version</span>
+            &nbsp;
+            <span style="background-color: greenyellow; color: black;" class="badge rounded-pill">Latest Version</span>
+            &nbsp;
+            <span class="badge text-bg-secondary rounded-pill">Offline Version</span>
+
+        </span>
+        <br>
+        <div *ngIf="survey?.versions.length == 0" class="row">
+            <p>No versions found for the selected survey</p>
+        </div>
+
+        <br>
+
+        <mat-divider></mat-divider>
+
+        <br>
+
+        <div id="versionDiv">
+            <h1 class="display-3" style="font-weight: bolder;">Editing console</h1>
+            <div class="row" *ngIf="selectedVersion == undefined">
+                <p>Select/Create a version to start editing</p>
+            </div>
+            <app-edit-version class="mt-5" [version]="selectedVersion" (refreshVersion)="handleRefreshVersion()" />
+        </div>
+
+    </div>
+</div>
+
+
+<!-- <p>view-survey works! - {{surveyId}}</p> -->

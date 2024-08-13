@@ -1,0 +1,112 @@
+<p *ngIf="version != undefined && version?.live == false">
+  <button (click)="toggleVisibility()" mat-raised-button>Make it live
+  </button>
+</p>
+<!-- <p *ngIf="version != undefined && version?.live == true">
+  <button (click)="toggleVisibility()" mat-button>Survey is Live, click to change visibility
+  </button>
+  
+</p> -->
+
+<div *ngIf="version != undefined && version?.live == true" class="alert alert-warning" role="alert">
+  <b>Version is <span style="background-color: greenyellow;" class="badge rounded-pill">Live</span></b><br>
+  Live versions cannot be edited.
+</div>
+
+
+<div *ngIf="version != undefined && version?.live == false" class="alert alert-warning" role="alert">
+  <b>Version is <span class="badge rounded-pill text-bg-secondary">Offline</span></b> <br>
+  You can edit the survey, Please note once the survey is made live no changes can be further added.
+</div>
+<p *ngIf="version != undefined && version?.live == false"><button (click)="addSectionModal()" mat-raised-button>Add
+    Section</button></p>
+
+
+<br>
+
+<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <mat-card style="cursor: grab; border-left: solid 5px black;" class="example-box mb-2"
+    *ngFor="let section of sections" cdkDrag>
+    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+    <mat-card-header>
+      <mat-card-title><span class="badge text-bg-secondary">{{section?.sectionType}}</span></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+
+      <!-- Heading -->
+      <div *ngIf="section?.sectionType == 'HEADING'">
+        <h1><b>{{section?.sectionTitle}}</b></h1>
+      </div>
+
+      <!-- Radio -->
+      <div *ngIf="section?.sectionType == 'RADIO'">
+        <h3>{{section?.sectionTitle}}</h3>
+
+        <div *ngFor="let option of section?.sectionOptions" class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            {{option?.optionTitle}}
+          </label>
+        </div>
+      </div>
+
+      <!-- Checkbox -->
+      <div *ngIf="section?.sectionType == 'CHECKBOX'">
+        <h3>{{section?.sectionTitle}}</h3>
+
+        <div *ngFor="let option of section?.sectionOptions" class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            {{option?.optionTitle}}
+          </label>
+        </div>
+      </div>
+
+      <!-- Checkbox -->
+      <div *ngIf="section?.sectionType == 'TEXTAREA'">
+        <h3>{{section?.sectionTitle}}</h3>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+
+      </div>
+
+
+
+
+      <mat-divider></mat-divider>
+    </mat-card-content>
+  </mat-card>
+
+  <br>
+  <mat-divider></mat-divider>
+  <br>
+
+  <div *ngIf="version != undefined && version?.live == true">
+    <h1 class="display-3" style="font-weight: bolder;">Result console</h1>
+    <div style="margin-top: -20px;">
+      <p>view all users who responded for the version.
+        <!-- {{version.surveyVersionId}} -->
+      </p>
+    </div>
+
+
+
+
+    <span *ngFor="let res of userSubmissionResults" class="mb-2">
+      <span style="cursor: pointer;">
+          <button style="background-color: grey;" *ngIf="res.user === 'Anonymous'" class="mb-2" mat-raised-button> Anonymous response - {{res.count}}</button>
+         
+          <button *ngIf="res.user != 'Anonymous'" class="text-bg-primary mb-2"  mat-raised-button> UserID {{res.user}}</button>
+
+
+      </span>
+      <!-- <span *ngIf="version.live" style="cursor:  not-allowed;"class="badge text-bg-success">v{{version.surveyVersionId}}</span>     -->
+      &nbsp;
+  </span>
+
+
+  </div>
+
+  <br><br><br>
+</div>

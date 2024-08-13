@@ -1,0 +1,33 @@
+<mat-toolbar class="bg-primary text-white sticky-top shadow">
+    <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button> -->
+    <span>Survey Management - Respondant Wall</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <span *ngIf="user == null" (click)="onLogin()">Login</span>
+          
+          <span *ngIf="user != null" (click)="onLogout()">Logout</span>
+        </button>
+      </mat-menu>
+</mat-toolbar>
+
+<mat-toolbar>
+
+    <span *ngIf="user == null" style="float: right;">
+        Your response will be recorded anonymously.</span>
+
+        <span *ngIf="user != null"  style="float: right;">
+            Welcome {{user?.name}}, </span>
+
+</mat-toolbar>
+
+
+
+
+<router-outlet />

@@ -1,0 +1,117 @@
+version: '3.8'
+services:
+  service-discovery:
+    image: nkr4m/service-discovery:v1
+    container_name: service-discovery
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-network
+
+  user-service-db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: user_service_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    networks:
+      - spring-network
+    volumes:
+      - user-service-db-data:/var/lib/mysql
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - service-discovery
+
+  user-service:
+    image: nkr4m/user-service:v1
+    container_name: user-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://user-service-db:3306/user_service_db
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=userpassword
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka
+    depends_on:
+      - user-service-db
+    networks:
+      - spring-network
+
+  survey-respondant-service-db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: survey-respondant_service_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    networks:
+      - spring-network
+    volumes:
+      - survey-respondant-service-db-data:/var/lib/mysql
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - user-service
+
+  survey-respondant-service:
+    image: nkr4m/survey-respondant-service:v1
+    container_name: survey-respondant-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://survey-respondant-service-db:3306/survey-respondant_service_db
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=userpassword
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka
+    depends_on:
+      - survey-respondant-service-db
+    networks:
+      - spring-network
+
+  survey-creator-service-db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: survey_creator_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    networks:
+      - spring-network
+    volumes:
+      - survey-creator-service-db-data:/var/lib/mysql
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - survey-respondant-service
+
+  survey-creator-service:
+    image: nkr4m/survey-creator-service:v1
+    container_name: survey-creator-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://survey-creator-service-db:3306/survey_creator_db
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=userpassword
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka
+    depends_on:
+      - survey-creator-service-db
+    networks:
+      - spring-network
+
+networks:
+  spring-network:
+    driver: bridge
+
+volumes:
+  user-service-db-data:
+  survey-respondant-service-db-data:
+  survey-creator-service-db-data:
